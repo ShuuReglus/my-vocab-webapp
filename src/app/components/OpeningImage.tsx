@@ -1,24 +1,48 @@
-// src/components/OpeningImage.tsx
+'use client';
 import { useEffect, useState } from 'react';
+import Image from 'next/image';
 
 export const OpeningImage = () => {
-  const [showText, setShowText] = useState(false);
+  const [step, setStep] = useState(0);
 
   useEffect(() => {
-    const timer = setTimeout(() => {
-      setShowText(true);
-    }, 3000); // 3秒後にテキスト表示
+    if (step < 2) {
+      const timer = setTimeout(() => setStep((prev) => prev + 1), 5000);
+      return () => clearTimeout(timer);
+    }
+  }, [step]);
 
-    return () => clearTimeout(timer);
-  }, []);
+  const baseStyle = 'absolute inset-0 w-full h-screen flex items-center justify-center';
 
   return (
-    <div
-      className={`absolute inset-0 flex items-center justify-center bg-white transition-opacity duration-1000 ${
-        showText ? 'opacity-100' : 'opacity-0'
-      }`}
-    >
-      <h1 className="text-4xl font-bold">Hello World</h1>
-    </div>
+    <>
+      {step === 0 && (
+        <div className={`${baseStyle} animate-zoomSpin bg-black`} style={{ zIndex: 30 }}>
+          <Image src="/images/opening.jpg" alt="Opening" fill className="object-cover opacity-80" />
+          <h1 className="text-5xl text-white font-bold animate-blink">✨WELCOME✨</h1>
+        </div>
+      )}
+
+      {step === 1 && (
+        <div
+          className={`${baseStyle} animate-rainbowSlide`}
+          style={{
+            background: 'linear-gradient(270deg, red, orange, yellow, green, blue, purple)',
+            backgroundSize: '1200% 1200%',
+            zIndex: 20,
+          }}
+        >
+          <h1 className="text-5xl font-bold text-white animate-slideIn">Let’s Begin!</h1>
+        </div>
+      )}
+
+      {step === 2 && (
+        <div className={`${baseStyle} bg-black animate-zoomOut`} style={{ zIndex: 10 }}>
+          <h1 className="text-6xl font-bold text-red-600 text-shadow animate-explode">
+            🔥RISE UP🔥
+          </h1>
+        </div>
+      )}
+    </>
   );
 };
