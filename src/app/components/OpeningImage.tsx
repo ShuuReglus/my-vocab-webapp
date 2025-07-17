@@ -1,16 +1,24 @@
 'use client';
 import { useEffect, useState } from 'react';
+import { useRouter } from 'next/navigation';
 import Image from 'next/image';
 
 export const OpeningImage = () => {
   const [step, setStep] = useState(0);
+  const router = useRouter(); // ← 追加
 
   useEffect(() => {
     if (step < 2) {
       const timer = setTimeout(() => setStep((prev) => prev + 1), 5000);
       return () => clearTimeout(timer);
+    } else if (step === 2) {
+      // アニメ終了後に遷移
+      const timer = setTimeout(() => {
+        router.push('/login');
+      }, 1500); // アニメ終わるちょっと後に遷移
+      return () => clearTimeout(timer);
     }
-  }, [step]);
+  }, [step, router]);
 
   const baseStyle = 'absolute inset-0 w-full h-screen flex items-center justify-center';
 
