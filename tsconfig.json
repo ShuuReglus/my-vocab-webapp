@@ -24,12 +24,14 @@
         "name": "next"
       }
     ],
-    "baseUrl": ".",
+    "baseUrl": "src",
     "paths": {
-      "@/*": ["src/app/*"]
+      "@/*": ["app/*"],                // app 配下を "@/..." で参照
+      "@lib/*": ["lib/*"],             // lib 配下を "@lib/..." で参照
+      "@components/*": ["app/components/*"]  // より細かい指定も可
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "next.config.js"],
   "exclude": ["node_modules"]
 }
 
