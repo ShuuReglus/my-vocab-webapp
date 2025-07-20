@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import { auth } from '@lib/firebase'; // Firebase 設定ファイル
 import { signInWithEmailAndPassword, createUserWithEmailAndPassword } from 'firebase/auth';
+import { toast } from 'react-hot-toast';
 
 export default function LoginPage() {
   const [email, setEmail] = useState('');
@@ -16,17 +17,17 @@ export default function LoginPage() {
       if (isRegister) {
         const userCredential = await createUserWithEmailAndPassword(auth, email, password);
         console.log('登録成功:', userCredential.user);
-        alert('ユーザー登録が完了しました！');
+        toast.success('🎉 ユーザー登録が完了しました！');
       } else {
         const userCredential = await signInWithEmailAndPassword(auth, email, password);
         console.log('ログイン成功:', userCredential.user);
-        alert('ログイン成功！');
+        toast.success('✅ ログイン成功！');
       }
     } catch (error: unknown) {
       if (error instanceof Error) {
-        alert(`エラー: ${error.message}`);
+        toast.error(`🚨 エラー: ${error.message}`);
       } else {
-        alert('予期せぬエラーが発生しました');
+        toast.error('予期せぬエラーが発生しました');
       }
     }
   };
