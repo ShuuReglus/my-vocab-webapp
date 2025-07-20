@@ -4,11 +4,13 @@ import { useState } from 'react';
 import { auth } from '@lib/firebase'; // Firebase 設定ファイル
 import { signInWithEmailAndPassword, createUserWithEmailAndPassword } from 'firebase/auth';
 import { toast } from 'react-hot-toast';
+import { useRouter } from 'next/navigation';
 
 export default function LoginPage() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [isRegister, setIsRegister] = useState(false); // ログインor新規登録切り替え
+  const router = useRouter();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -18,10 +20,12 @@ export default function LoginPage() {
         const userCredential = await createUserWithEmailAndPassword(auth, email, password);
         console.log('登録成功:', userCredential.user);
         toast.success('🎉 ユーザー登録が完了しました！');
+        router.push('/dashboard');
       } else {
         const userCredential = await signInWithEmailAndPassword(auth, email, password);
         console.log('ログイン成功:', userCredential.user);
         toast.success('✅ ログイン成功！');
+        router.push('/dashboard');
       }
     } catch (error: unknown) {
       if (error instanceof Error) {
