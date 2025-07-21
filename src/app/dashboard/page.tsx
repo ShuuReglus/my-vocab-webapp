@@ -13,8 +13,15 @@ export default function DashboardPage() {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
       if (user) {
         setUserEmail(user.email);
+
+        // 5秒後に /collection に遷移
+        const timer = setTimeout(() => {
+          router.push('/collection');
+        }, 5000);
+
+        return () => clearTimeout(timer);
       } else {
-        router.push('/login'); // 未ログインならログインへ戻す
+        router.push('/login');
       }
     });
 
@@ -35,6 +42,7 @@ export default function DashboardPage() {
             <p className="text-lg mb-6">
               ようこそ、<span className="font-mono text-blue-300">{userEmail}</span> さん！
             </p>
+            <p className="text-sm text-gray-400 mb-6">5秒後にコレクションページへ移動します...</p>
             <button
               onClick={handleLogout}
               className="bg-red-600 hover:bg-red-700 transition-colors py-2 px-6 rounded-lg font-semibold"
