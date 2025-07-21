@@ -1,13 +1,15 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { auth } from '@lib/firebase';
-import { onAuthStateChanged } from 'firebase/auth';
 import { useRouter } from 'next/navigation';
+import { auth, db } from '@lib/firebase';
+import { onAuthStateChanged } from 'firebase/auth';
+import { collection, query, where, getDocs } from 'firebase/firestore';
 
 type Card = {
   id: string;
   text: string;
+  description?: string;
 };
 
 export default function CollectionPage() {
@@ -16,25 +18,32 @@ export default function CollectionPage() {
   const router = useRouter();
 
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (user) => {
+    const unsubscribe = onAuthStateChanged(auth, async (user) => {
       if (!user) {
         router.push('/login');
       } else {
         setUserEmail(user.email);
-        setCards([
-          { id: '1', text: '”I will never give up.漢字”' },
-          { id: '2', text: 'Believe in yourself.' },
-          { id: '3', text: 'Every challenge is an opportunity.' },
-        ]);
+
+        try {
+          const q = query(collection(db, 'cards'), where('uid', '==', user.uid));
+          const snapshot = await getDocs(q);
+          const userCards = snapshot.docs.map((doc) => {
+            const data = doc.data() as Omit<Card, 'id'>;
+            return { ...data, id: doc.id };
+          });
+          setCards(userCards);
+        } catch (error) {
+          console.error('カードの取得に失敗:', error);
+        }
       }
     });
 
     return () => unsubscribe();
-  }, []);
+  }, [router]); // ← 依存配列に router を追加
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-[#0f0c29] via-[#302b63] to-[#24243e] text-white p-8">
-      <h1 className="text-5xl font-bold text-center mb-8 tracking-wide"> カードコレクション</h1>
+      <h1 className="text-5xl font-bold text-center mb-8 tracking-wide">Card Collection</h1>
 
       {userEmail && (
         <p className="text-center mb-10 text-gray-300">
@@ -53,14 +62,14 @@ export default function CollectionPage() {
               Echo of Wisdom
             </div>
 
-            {/* 名言テキスト（中央） */}
+            {/* 名言テキスト */}
             <div className="absolute top-24 left-4 right-4 h-40 bg-[#1a1a1a] text-[#fefefe] p-3 rounded-md border-2 border-[#ccc] text-[20px] font-script-body italic drop-shadow-md leading-relaxed text-center flex items-center justify-center">
               {card.text}
             </div>
 
-            {/* 底部の説明欄 */}
+            {/* 説明欄 */}
             <div className="absolute bottom-4 left-4 right-4 text-xs italic text-[#3a1f00] bg-[#fef4dc] p-2 rounded border border-[#a67c52]">
-              あなたの記憶に刻まれた言葉が、力となって現れる…
+              {card.description || 'あなたの記憶に刻まれた言葉が、力となって現れる…'}
             </div>
           </div>
         ))}
