@@ -5,6 +5,7 @@ import { useRouter } from 'next/navigation';
 import { auth, db } from '@lib/firebase';
 import { onAuthStateChanged } from 'firebase/auth';
 import { collection, query, where, getDocs } from 'firebase/firestore';
+import SettingsMenu from '@/components/SettingsMenu';
 
 type Card = {
   id: string;
@@ -43,6 +44,7 @@ export default function CollectionPage() {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-[#0f0c29] via-[#302b63] to-[#24243e] text-white p-8">
+      <SettingsMenu />
       <h1 className="text-5xl font-bold text-center mb-8 tracking-wide">Card Collection</h1>
 
       {userEmail && (

@@ -26,9 +26,9 @@
     ],
     "baseUrl": "src",
     "paths": {
-      "@/*": ["app/*"],                // app 配下を "@/..." で参照
-      "@lib/*": ["lib/*"],             // lib 配下を "@lib/..." で参照
-      "@components/*": ["app/components/*"]  // より細かい指定も可
+      "@/*": ["*"],                // app 配下を "@/..." で参照
+      "@lib/*": ["lib/*"],             // lib 配下を "@lib/..." で参照 
+      "@components/*": ["components/*"] // // より細かい指定も可
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "next.config.js"],
