@@ -43,6 +43,9 @@ export default function SettingsMenu() {
                 >
                   📝 カードを作成
                 </Link>
+                <Link href="/profile" className="hover:bg-gray-100 px-4 py-2 block">
+                  👤 プロフィール
+                </Link>
               </li>
               {/* 他にも項目追加可能 */}
             </ul>
