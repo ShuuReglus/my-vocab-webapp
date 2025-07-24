@@ -11,6 +11,7 @@ export default function CreateCardPage() {
   const [text, setText] = useState('');
   const [description, setDescription] = useState('');
   const [user, setUser] = useState<User | null>(null);
+  const [showRegisterPrompt, setShowRegisterPrompt] = useState(false); // ★ モーダル表示用
   const router = useRouter();
 
   useEffect(() => {
@@ -42,8 +43,13 @@ export default function CreateCardPage() {
         description,
         createdAt: serverTimestamp(),
       });
-      alert('カードを作成しました！');
-      router.push('/collection');
+
+      if (user.isAnonymous) {
+        setShowRegisterPrompt(true); // ★ 匿名ならモーダル表示
+      } else {
+        alert('カードを作成しました！');
+        router.push('/collection');
+      }
     } catch (err) {
       alert('カードの作成に失敗しました');
       console.error(err);
@@ -84,6 +90,33 @@ export default function CreateCardPage() {
           カードを作成する
         </button>
       </div>
+
+      {/* ★ 匿名ユーザー向け 登録モーダル */}
+      {showRegisterPrompt && (
+        <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-70 z-50">
+          <div className="bg-white text-black p-6 rounded-xl shadow-lg w-full max-w-sm space-y-4">
+            <h2 className="text-xl font-bold">登録してデータを残そう！</h2>
+            <p>このままだと後からカードを見返せなくなります。アカウント登録して保存しましょう！</p>
+            <div className="flex justify-end gap-4">
+              <button
+                className="text-gray-600 hover:underline"
+                onClick={() => {
+                  setShowRegisterPrompt(false);
+                  router.push('/collection'); // 登録スキップ
+                }}
+              >
+                あとで
+              </button>
+              <button
+                className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700"
+                onClick={() => router.push('/login')}
+              >
+                登録する
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
