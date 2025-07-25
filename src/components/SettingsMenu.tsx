@@ -2,7 +2,7 @@
 
 import { useState, useRef, useEffect } from 'react';
 import Link from 'next/link';
-import { Settings } from 'lucide-react'; // ← lucide-react を使ってる場合
+import { Settings } from 'lucide-react';
 import { AnimatePresence, motion } from 'framer-motion';
 
 export default function SettingsMenu() {
@@ -43,11 +43,21 @@ export default function SettingsMenu() {
                 >
                   📝 カードを作成
                 </Link>
-                <Link href="/profile" className="hover:bg-gray-100 px-4 py-2 block">
+                <Link
+                  href="/profile"
+                  className="block px-4 py-2 hover:bg-gray-800 transition-colors"
+                  onClick={() => setOpen(false)}
+                >
                   👤 プロフィール
                 </Link>
+                <Link
+                  href="/quiz"
+                  className="block px-4 py-2 hover:bg-gray-800 transition-colors"
+                  onClick={() => setOpen(false)}
+                >
+                  🧠 クイズに挑戦
+                </Link>
               </li>
-              {/* 他にも項目追加可能 */}
             </ul>
           </motion.div>
         )}
