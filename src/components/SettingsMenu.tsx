@@ -4,10 +4,16 @@ import { useState, useRef, useEffect } from 'react';
 import Link from 'next/link';
 import { Settings } from 'lucide-react';
 import { AnimatePresence, motion } from 'framer-motion';
+import { db } from '@lib/firebase';
+import { doc, getDoc } from 'firebase/firestore';
+import { useUser } from '@/lib/hooks/useUser';
+// ←あなたの auth フックに合わせて要確認
 
 export default function SettingsMenu() {
   const [open, setOpen] = useState(false);
   const menuRef = useRef<HTMLDivElement>(null);
+  const [points, setPoints] = useState<number | null>(null);
+  const { user } = useUser(); // ← useUser とかならここ調整してね！
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -19,6 +25,20 @@ export default function SettingsMenu() {
     document.addEventListener('mousedown', handleClickOutside);
     return () => document.removeEventListener('mousedown', handleClickOutside);
   }, []);
+
+  // ポイント取得処理
+  useEffect(() => {
+    const fetchPoints = async () => {
+      if (!user) return;
+      const ref = doc(db, 'users', user.uid, 'dailyReward', 'status');
+      const snap = await getDoc(ref);
+      if (snap.exists()) {
+        const data = snap.data();
+        setPoints(data.totalPoints || 0);
+      }
+    };
+    fetchPoints();
+  }, [user]);
 
   return (
     <div className="absolute top-4 right-4 z-50" ref={menuRef}>
@@ -32,7 +52,7 @@ export default function SettingsMenu() {
             initial={{ opacity: 0, y: -10 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -10 }}
-            className="mt-2 w-48 bg-gray-900 text-white rounded-lg shadow-lg border border-gray-700"
+            className="mt-2 w-56 bg-gray-900 text-white rounded-lg shadow-lg border border-gray-700"
           >
             <ul className="divide-y divide-gray-700">
               <li>
@@ -57,8 +77,18 @@ export default function SettingsMenu() {
                 >
                   🧠 クイズに挑戦
                 </Link>
+                <Link
+                  href="/daily"
+                  className="block px-4 py-2 hover:bg-gray-800 transition-colors"
+                  onClick={() => setOpen(false)}
+                >
+                  🎁 デイリーボーナス
+                </Link>
               </li>
             </ul>
+            {points !== null && (
+              <p className="px-4 py-2 text-sm text-yellow-400">ポイント: {points}</p>
+            )}
           </motion.div>
         )}
       </AnimatePresence>
