@@ -11,7 +11,7 @@ export default function AboutPage() {
         このページは開発者が作成したクイズ学習アプリの紹介用ページです。Firebase, Next.js, Tailwind
         CSS を使用しています。
       </p>
-      <Link href="/quiz">
+      <Link href="/components/OpeningImage.tsx">
         <button className="bg-yellow-500 text-black px-6 py-3 rounded hover:bg-yellow-600 transition font-bold">
           アプリを体験する
         </button>
