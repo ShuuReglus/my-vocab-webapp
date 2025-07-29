@@ -42,3 +42,20 @@ body {
   background: linear-gradient(135deg, #fffbe6, #f8f2d4);
 }
 
+@layer utilities {
+  @keyframes shooting {
+    0% {
+      transform: translate(0, 0) scale(1);
+      opacity: 1;
+    }
+    100% {
+      transform: translate(-300px, 300px) scale(0.5);
+      opacity: 0;
+    }
+  }
+
+  .animate-shooting-star {
+    animation: shooting 3s linear infinite;
+  }
+}
+
