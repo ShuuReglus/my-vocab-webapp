@@ -1,36 +1,75 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 🌙 Quiz Galaxy - クイズで学ぶ宇宙旅
 
-## Getting Started
+> 「ありえないをアリエルへ」  
+> わくわくしながら知識を深められる、体験型クイズ学習アプリ
 
-First, run the development server:
+---
+
+## 🔥 概要
+
+Quiz Galaxy は、アニメや日常知識などをテーマにしたクイズで楽しく学べるアプリです。  
+**ユーザーの記憶定着や継続性を意識したUI設計**が特徴です。
+
+- 作成者：YourName（@GitHubユーザー名）
+- 技術スタック：Next.js / Firebase / Tailwind CSS / TypeScript
+- 対象ユーザー：学びを楽しみたい初学者〜中級者
+
+---
+
+## 🎮 主な機能
+
+- ✅ クイズ回答 → 自動採点・保存
+- 🛠 クイズ作成機能（画像アップ対応）
+- 📅 毎日クイズ（Today’s Challenge）
+- 📊 ユーザーダッシュボード（成績確認）
+- 🧠 アニメ知識テスト（アニメ専用モード）
+
+---
+
+## 🚀 使用技術
+
+| 技術         | 用途                      |
+|--------------|---------------------------|
+| **Next.js**  | フロントエンド + ルーティング |
+| **Firebase** | 認証 / DB / ストレージ     |
+| **Tailwind CSS** | UI スタイリング           |
+| **TypeScript** | 型安全な開発              |
+
+---
+
+## 🖼️ UIプレビュー
+
+![screenshot](./public/screenshot.png)
+
+---
+
+## 🧪 ローカルでの起動方法
 
 ```bash
+git clone https://github.com/yourname/your-repo-name.git
+cd your-repo-name
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+ブラウザで http://localhost:3000 にアクセス
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+🙌 工夫したポイント
+ユーザーに飽きさせない「感情ベース」のUI動線設計
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+クイズ生成時のUXを考慮したドラッグ＆ドロップ対応
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+モバイルデザインも対応済
 
-## Learn More
+📮 今後の展望
+🌐 多言語対応（日本語／英語）
 
-To learn more about Next.js, take a look at the following resources:
+🎉 スコアランキング機能
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+🧩 カスタム問題パックの共有
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+🧑‍💻 開発者
+Your Name
+ポートフォリオ：https://yourportfolio.com
 
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+⭐ GitHub
+気に入ってくれたら Star もらえると嬉しいです🌟
+GitHub リンク
