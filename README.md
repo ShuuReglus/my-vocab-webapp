@@ -69,7 +69,7 @@ npm run dev
 
 ## 🌐 デモサイト
 
-▶️ アプリを体験してみる → [https://your-app.vercel.app](https://your-app.vercel.app)
+▶️ アプリを体験してみる → https://my-vocab-webapp.vercel.app/
 
 ### 💡 こんなことができます
 
