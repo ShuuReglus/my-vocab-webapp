@@ -155,32 +155,57 @@ export default function AboutPage() {
         );
       })}
       {/* 🧑‍💻 プロフィール */}
-      <section className="min-h-[60vh] bg-gray-900 text-white px-6 py-20 flex flex-col items-center justify-center text-center space-y-6 relative z-10">
+      {/* 🧑‍💻 プロフィール */}
+      <section className="min-h-[70vh] bg-gray-900 text-white px-6 py-20 flex flex-col items-center justify-center text-center space-y-8 relative z-10">
         <h2 className="text-3xl sm:text-4xl font-bold text-yellow-400 drop-shadow-lg">
           開発者プロフィール
         </h2>
 
-        {/* 四角い全体画像（角は少し丸く） */}
-        <div className="w-full max-w-xs sm:max-w-sm md:max-w-md">
-          <img
-            src="/創宇宙服.png"
-            alt="プロフィール画像"
-            className="w-full h-auto rounded-xl border-4 border-yellow-400 object-contain shadow-xl"
-          />
+        {/* 名刺風プロフィールカード */}
+        <div className="bg-white text-gray-800 rounded-2xl shadow-xl p-6 sm:p-8 max-w-3xl w-full flex flex-col sm:flex-row items-center gap-6">
+          {/* 左側アイコン画像 */}
+          <div className="flex-shrink-0">
+            <img
+              src="/創宇宙服.png"
+              alt="プロフィール画像"
+              className="w-32 h-32 sm:w-40 sm:h-40 rounded-full border-4 border-yellow-400 object-cover object-top shadow-md"
+            />
+          </div>
+
+          {/* 右側テキスト */}
+          <div className="flex flex-col items-center sm:items-start space-y-3">
+            <h3 className="text-2xl font-bold">修田　創</h3>
+            <p className="text-gray-600">SHIYUUDEN HAJIME</p>
+            <p className="text-sm sm:text-base text-gray-700">
+              フロントエンドとUIUXデザインを軸にFirebase / Next.js / Tailwind
+              CSSで構築した、学習者体験を重視したカードゲームアプリとPython / AWS / OpenAI
+              APIを使用した名言ガチャアプリを開発。
+              名言ガチャアプリは事情によりREADMEのみですがZOOM等でならお見せできます。
+            </p>
+            <p className="text-sm sm:text-base text-gray-500">出身地　石川県</p>
+          </div>
         </div>
 
-        <div className="backdrop-blur-md bg-white/10 px-4 sm:px-6 py-4 rounded-xl shadow-lg max-w-xl">
-          <p className="text-gray-200 text-base sm:text-lg leading-relaxed">
-            フロントエンドとUIUXデザインを軸に、学習者体験を重視したアプリケーションを開発中。
-            Firebase、Next.js、Tailwind CSSで構築。
-          </p>
-        </div>
+        {/* GitHub README ボタン */}
+        <div className="flex flex-col sm:flex-row gap-4">
+          <Link href="https://github.com/ShuuReglus/Sproject" target="_blank">
+            <button className="bg-yellow-500 text-black px-8 py-3 rounded-lg hover:bg-yellow-600 transition font-bold text-lg shadow-md">
+              名言アプリGitHub READMEを見る
+            </button>
+          </Link>
 
-        <Link href="/">
-          <button className="bg-yellow-500 text-black px-8 py-3 rounded hover:bg-yellow-600 transition font-bold text-lg shadow-md">
-            アプリを体験する
-          </button>
-        </Link>
+          <Link href="https://github.com/ShuuReglus/my-vocab-webapp" target="_blank">
+            <button className="bg-yellow-500 text-black px-8 py-3 rounded-lg hover:bg-yellow-600 transition font-bold text-lg shadow-md">
+              カードアプリGitHub READMEを見る
+            </button>
+          </Link>
+
+          <Link href="https://my-vocab-webapp-pash82mz0-rglus-projects.vercel.app/" target="_blank">
+            <button className="bg-yellow-500 text-black px-8 py-3 rounded-lg hover:bg-yellow-600 transition font-bold text-lg shadow-md">
+              カードアプリを体験する
+            </button>
+          </Link>
+        </div>
       </section>
     </main>
   );
