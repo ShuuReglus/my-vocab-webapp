@@ -40,14 +40,14 @@ export const OpeningImage = () => {
             zIndex: 20,
           }}
         >
-          <h1 className="text-5xl font-bold text-white animate-slideIn">Let’s Begin!</h1>
+          <h1 className="text-5xl font-bold text-white animate-slideIn">Echo of Wisdomはカードを作り記憶に残す</h1>
         </div>
       )}
 
       {step === 2 && (
         <div className={`${baseStyle} bg-black animate-zoomOut`} style={{ zIndex: 10 }}>
           <h1 className="text-6xl font-bold text-red-600 text-shadow animate-explode">
-            🔥RISE UP🔥
+            {"Let's go now"}
           </h1>
         </div>
       )}

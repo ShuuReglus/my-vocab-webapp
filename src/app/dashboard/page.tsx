@@ -36,7 +36,7 @@ export default function DashboardPage() {
   return (
     <div className="min-h-screen flex items-center justify-center bg-black text-white">
       <div className="bg-gray-800 p-10 rounded-2xl shadow-lg text-center">
-        <h1 className="text-3xl font-bold mb-4">ログイン完了 🎉</h1>
+        <h1 className="text-3xl font-bold mb-4">ログイン完了 </h1>
         {userEmail ? (
           <>
             <p className="text-lg mb-6">
