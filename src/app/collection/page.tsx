@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { auth, db } from '@lib/firebase';
 import { onAuthStateChanged } from 'firebase/auth';
-import { collection, query, where, getDocs } from 'firebase/firestore';
+import { collection, query, where, getDocs, deleteDoc, doc } from 'firebase/firestore';
 import SettingsMenu from '@/components/SettingsMenu';
 
 type Card = {
@@ -18,6 +18,7 @@ export default function CollectionPage() {
   const [userEmail, setUserEmail] = useState<string | null>(null);
   const router = useRouter();
 
+  // ログイン状態監視 & カード取得
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, async (user) => {
       if (!user) {
@@ -28,10 +29,12 @@ export default function CollectionPage() {
         try {
           const q = query(collection(db, 'cards'), where('uid', '==', user.uid));
           const snapshot = await getDocs(q);
+
           const userCards = snapshot.docs.map((doc) => {
             const data = doc.data() as Omit<Card, 'id'>;
             return { ...data, id: doc.id };
           });
+
           setCards(userCards);
         } catch (error) {
           console.error('カードの取得に失敗:', error);
@@ -40,11 +43,26 @@ export default function CollectionPage() {
     });
 
     return () => unsubscribe();
-  }, [router]); // ← 依存配列に router を追加
+  }, [router]);
+
+  // 🔥 カード削除処理（SettingsMenu から呼ばれる）
+  const handleDeleteCard = async (id: string) => {
+    try {
+      console.log('削除しようとしているID:', id);
+      await deleteDoc(doc(db, 'cards', id)); // Firestore から削除
+      setCards((prev) => prev.filter((card) => card.id !== id)); // UI更新
+      alert('カードを削除しました');
+    } catch (error) {
+      console.error('カード削除エラー:', error);
+      alert('カード削除に失敗しました');
+    }
+  };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-[#0f0c29] via-[#302b63] to-[#24243e] text-white p-8">
-      <SettingsMenu />
+    <div className="min-h-screen bg-gradient-to-br from-[#0f0c29] via-[#302b63] to-[#24243e] text-white p-8 relative">
+      {/* 右上の設定メニュー */}
+      <SettingsMenu cards={cards} onDelete={handleDeleteCard} />
+
       <h1 className="text-5xl font-bold text-center mb-8 tracking-wide">Card Collection</h1>
 
       {userEmail && (
@@ -53,29 +71,35 @@ export default function CollectionPage() {
         </p>
       )}
 
+      {/* カード一覧 */}
       <div className="flex flex-wrap gap-8 justify-center">
-        {cards.map((card) => (
-          <div
-            key={card.id}
-            className="relative w-[300px] h-[420px] rounded-lg shadow-xl overflow-hidden border-4 border-[#8B4513] bg-gradient-to-b from-[#e0c097] to-[#d6a76c] p-4"
-          >
-            {/* タイトル */}
-            <div className="text-center text-4xl text-[#3a1f00] mt-4 font-script-title tracking-wider">
-              Echo of Wisdom
-            </div>
+        {cards.length > 0 ? (
+          cards.map((card) => (
+            <div
+              key={card.id}
+              className="relative w-[300px] h-[420px] rounded-lg shadow-xl overflow-hidden border-4 border-[#8B4513] bg-gradient-to-b from-[#e0c097] to-[#d6a76c] p-4"
+            >
+              {/* タイトル */}
+              <div className="text-center text-4xl text-[#3a1f00] mt-4 font-script-title tracking-wider">
+                Echo of Wisdom
+              </div>
 
-            {/* 名言テキスト */}
-            <div className="absolute top-24 left-4 right-4 h-40 bg-[#1a1a1a] text-[#fefefe] p-3 rounded-md border-2 border-[#ccc] text-[20px] font-script-body italic drop-shadow-md leading-relaxed text-center flex items-center justify-center">
-              {card.text}
-            </div>
+              {/* 名言テキスト */}
+              <div className="absolute top-24 left-4 right-4 h-40 bg-[#1a1a1a] text-[#fefefe] p-3 rounded-md border-2 border-[#ccc] text-[20px] font-script-body italic drop-shadow-md leading-relaxed text-center flex items-center justify-center">
+                {card.text}
+              </div>
 
-            {/* 説明欄 */}
-            <div className="absolute bottom-4 left-4 right-4 text-xs italic text-[#3a1f00] bg-[#fef4dc] p-2 rounded border border-[#a67c52]">
-              {card.description || 'あなたの記憶に刻まれた言葉が、力となって現れる…'}
+              {/* 説明欄 */}
+              <div className="absolute bottom-4 left-4 right-4 text-xs italic text-[#3a1f00] bg-[#fef4dc] p-2 rounded border border-[#a67c52]">
+                {card.description || 'あなたの記憶に刻まれた言葉が、力となって現れる…'}
+              </div>
             </div>
-          </div>
-        ))}
+          ))
+        ) : (
+          <p className="text-center text-gray-400">カードがまだありません。</p>
+        )}
       </div>
     </div>
   );
 }
+
