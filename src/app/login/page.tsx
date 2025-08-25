@@ -1,14 +1,17 @@
 'use client';
 
-import { useState } from 'react';
-import { auth } from '@lib/firebase';
+import { useState, useEffect } from 'react';
+import { auth, db } from '@lib/firebase';
 import {
   signInWithEmailAndPassword,
   createUserWithEmailAndPassword,
   signInAnonymously,
   EmailAuthProvider,
   linkWithCredential,
+  deleteUser,
+  User,
 } from 'firebase/auth';
+import { collection, addDoc, getDocs, query, where } from 'firebase/firestore';
 import { toast } from 'react-hot-toast';
 import { useRouter } from 'next/navigation';
 
@@ -18,28 +21,64 @@ export default function LoginPage() {
   const [isRegister, setIsRegister] = useState(false);
   const router = useRouter();
 
+  // 📝 サンプルカードを5枚作成
+  const createSampleCards = async (user: User) => {
+    try {
+      const q = query(collection(db, 'cards'), where('uid', '==', user.uid));
+      const snapshot = await getDocs(q);
+
+      if (!snapshot.empty) {
+        console.log('カードはすでに存在するので作成しません');
+        return;
+      }
+
+      const sampleCards = Array.from({ length: 5 }, (_, i) => ({
+        text: `サンプルカード ${i + 1}`,
+        description: `これはサンプルカード ${i + 1} の説明です`,
+        uid: user.uid,
+      }));
+
+      for (const card of sampleCards) {
+        await addDoc(collection(db, 'cards'), card);
+      }
+
+      console.log('サンプルカードを作成しました');
+    } catch (err) {
+      console.error('サンプルカード作成エラー:', err);
+    }
+  };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
     try {
+      let user: User | null = null;
+
       if (isRegister) {
         const currentUser = auth.currentUser;
 
         if (currentUser && currentUser.isAnonymous) {
           // 🔗 匿名ユーザーが本登録する場合
           const credential = EmailAuthProvider.credential(email, password);
-          await linkWithCredential(currentUser, credential);
+          const linkedUser = await linkWithCredential(currentUser, credential);
+          user = linkedUser.user;
           toast.success('🎉 匿名アカウントが登録に引き継がれました！');
         } else {
           // ✨ 通常の新規登録
-          await createUserWithEmailAndPassword(auth, email, password);
+          const result = await createUserWithEmailAndPassword(auth, email, password);
+          user = result.user;
           toast.success('🎉 ユーザー登録が完了しました！');
+        }
+
+        if (user) {
+          await createSampleCards(user); // 初回ログイン時にサンプル作成
         }
 
         router.push('/dashboard');
       } else {
         // 🔐 通常ログイン
-        await signInWithEmailAndPassword(auth, email, password);
+        const result = await signInWithEmailAndPassword(auth, email, password);
+        user = result.user;
         toast.success('✅ ログイン成功！');
         router.push('/dashboard');
       }
@@ -55,8 +94,11 @@ export default function LoginPage() {
   const loginAsGuest = async () => {
     try {
       const result = await signInAnonymously(auth);
-      console.log('ゲストログイン成功:', result.user);
+      const user = result.user;
+      console.log('ゲストログイン成功:', user);
       toast.success('🙌 ゲストとしてログインしました');
+
+      await createSampleCards(user); // ゲストにもカード作成
       router.push('/dashboard');
     } catch (error: unknown) {
       if (error instanceof Error) {
@@ -68,6 +110,24 @@ export default function LoginPage() {
       }
     }
   };
+
+  // 🗑️ ゲストはアプリ閉じたら削除
+  useEffect(() => {
+    const handleUnload = async () => {
+      const user = auth.currentUser;
+      if (user && user.isAnonymous) {
+        try {
+          await deleteUser(user);
+          console.log('匿名ユーザーを削除しました');
+        } catch (err) {
+          console.error('匿名ユーザー削除エラー:', err);
+        }
+      }
+    };
+
+    window.addEventListener('beforeunload', handleUnload);
+    return () => window.removeEventListener('beforeunload', handleUnload);
+  }, []);
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-900 text-white">
@@ -138,3 +198,4 @@ export default function LoginPage() {
     </div>
   );
 }
+
