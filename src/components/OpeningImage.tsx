@@ -27,22 +27,25 @@ export const OpeningImage = () => {
       {step === 0 && (
         <div className={`${baseStyle} animate-zoomSpin bg-black`} style={{ zIndex: 30 }}>
           <Image src="/images/opening.jpg" alt="Opening" fill className="object-cover opacity-80" />
-          <h1 className="text-5xl text-white font-bold animate-blink">✨WELCOME✨</h1>
+          <h1 className="text-5xl text-white font-bold animate-blink">WELCOME</h1>
         </div>
       )}
 
       {step === 1 && (
-        <div
-          className={`${baseStyle} animate-rainbowSlide`}
-          style={{
-            background: 'linear-gradient(270deg, red, orange, yellow, green, blue, purple)',
-            backgroundSize: '1200% 1200%',
-            zIndex: 20,
-          }}
-        >
-          <h1 className="text-5xl font-bold text-white animate-slideIn">Echo of Wisdomはカードを作り記憶に残す</h1>
-        </div>
-      )}
+  <div
+    className={`${baseStyle} animate-rainbowSlide`}
+    style={{
+      background: 'linear-gradient(270deg, #A8E6CF, #66BB6A, #2E7D32)',
+      backgroundSize: '1200% 1200%',
+      zIndex: 20,
+    }}
+  >
+    <h1 className="text-5xl font-bold text-white animate-slideIn">
+      Echo of Wisdomはカードを作り記憶に残します
+    </h1>
+  </div>
+)}
+
 
       {step === 2 && (
         <div className={`${baseStyle} bg-black animate-zoomOut`} style={{ zIndex: 10 }}>
