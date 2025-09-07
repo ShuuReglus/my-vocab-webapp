@@ -40,6 +40,7 @@ Echo of Wisdom は、自身で作成したカードをクイズで楽しく学�
 
 ## 🖼️ UIプレビュー
 
+![コレクション画面](public/corekusyonn.png)
 ![クイズ画面](public/quiz.png)
 ![正解画面](public/cliar.png)
 ---
