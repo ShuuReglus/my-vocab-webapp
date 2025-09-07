@@ -12,7 +12,7 @@ Echo of Wisdom は、自身で作成したカードをクイズで楽しく学�
 **ユーザーの記憶定着や継続性を意識したUI設計**が特徴です。
 
 - 作成者：修田　創（@GitHubユーザー名　ShuuReglus）
-- 技術スタック：Next.js / Firebase / Tailwind CSS / TypeScript
+- 技術スタック：Next.js / Firebase（データベース） / Tailwind CSS / TypeScript
 - 対象ユーザー：学びを楽しみたい初学者〜中級者、学生、学習が必要な社会人。
 
 ---
@@ -40,6 +40,7 @@ Echo of Wisdom は、自身で作成したカードをクイズで楽しく学�
 
 ## 🖼️ UIプレビュー
 
+![コレクション画面](public/corekusyonn.png)
 ![クイズ画面](public/quiz.png)
 ![正解画面](public/cliar.png)
 ---
