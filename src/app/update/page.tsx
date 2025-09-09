@@ -94,7 +94,7 @@ export default function UpdatePage() {
             </div>
 
             {/* 説明部分 */}
-            <div className="absolute bottom-4 left-4 right-4 text-xs italic bg-[#fef4dc] p-2 rounded border border-[#a67c52]">
+            <div className="absolute bottom-4 left-4 right-4 text-xs italic bg-black p-2 rounded border border-[#a67c52]">
               {editingId === card.id ? (
                 <textarea
                   value={editDescription}
