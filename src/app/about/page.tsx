@@ -177,10 +177,7 @@ export default function AboutPage() {
             <h3 className="text-2xl font-bold">修田　創</h3>
             <p className="text-gray-600">SHIYUUDEN HAJIME</p>
             <p className="text-sm sm:text-base text-gray-700">
-              フロントエンドとUIUXデザインを軸にFirebase / Next.js / Tailwind
-              CSSで構築した、学習者体験を重視したカードゲームアプリとPython / AWS / OpenAI
-              APIを使用した名言ガチャアプリを開発。
-              名言ガチャアプリは事情によりREADMEのみですがZOOM等でならお見せできます。
+              フロントエンドとUIUXデザインを軸にFirebase / Next.js / TailwindCSSで構築した、学習者体験を重視したカードゲームアプリとPython / AWS / OpenAIAPIを使用した名言ガチャアプリを開発、名言ガチャアプリは事情によりREADMEのみですがZOOM等でならお見せできます。
             </p>
             <p className="text-sm sm:text-base text-gray-500">出身地　石川県</p>
           </div>
@@ -200,7 +197,7 @@ export default function AboutPage() {
             </button>
           </Link>
 
-          <Link href="https://my-vocab-webapp-pash82mz0-rglus-projects.vercel.app/" target="_blank">
+          <Link href="https://my-vocab-webapp.vercel.app/" target="_blank">
             <button className="bg-yellow-500 text-black px-8 py-3 rounded-lg hover:bg-yellow-600 transition font-bold text-lg shadow-md">
               カードアプリを体験する
             </button>
