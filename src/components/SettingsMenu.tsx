@@ -101,6 +101,15 @@ const handleClickDelete = (id: string) => {
         >
           🧠 クイズに挑戦
         </Link>
+        <Link
+  href="/update"
+  className="block px-4 py-2 hover:bg-gray-800 transition-colors"
+  onClick={() => setOpen(false)}
+>
+  ✏️ カードを変更
+</Link>
+
+
       </li>
     </ul>
 
