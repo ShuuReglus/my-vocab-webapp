@@ -1,8 +1,9 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { collection, getDocs } from 'firebase/firestore';
-import { db } from '@lib/firebase';
+import { collection, getDocs, query, where, addDoc } from 'firebase/firestore';
+import { db, auth } from '@lib/firebase';
+import { useAuthState } from 'react-firebase-hooks/auth';
 import Image from 'next/image';
 
 type Card = {
@@ -12,27 +13,73 @@ type Card = {
   uid: string;
 };
 
+async function createGuestCards(uid: string) {
+  const guestCards = [
+    { text: '勇気は一歩から', description: 'どんな大きな挑戦も小さな一歩から始まる', uid },
+    { text: '知識は力なり', description: '学びは人生を切り拓く最強の武器である', uid },
+    { text: '忍耐は成功の鍵', description: 'すぐに結果は出なくても努力を続けることが大切', uid },
+    { text: '失敗は成長の糧', description: '失敗を恐れず挑戦することで強くなれる', uid },
+    { text: '仲間は宝', description: '共に歩む仲間の存在が人生を豊かにする', uid },
+  ];
+  for (const card of guestCards) {
+    await addDoc(collection(db, 'cards'), card);
+  }
+}
+
 export default function QuizPage() {
   const [quizData, setQuizData] = useState<Card[]>([]);
+  const [allCards, setAllCards] = useState<Card[]>([]);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [score, setScore] = useState(0);
   const [showResult, setShowResult] = useState(false);
   const [selectedOption, setSelectedOption] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
 
+  const [user, userLoading] = useAuthState(auth);
+
   useEffect(() => {
+    if (userLoading) return;
+    if (!user) {
+      setQuizData([]);
+      setLoading(false);
+      return;
+    }
+
     const fetchCards = async () => {
-      const snapshot = await getDocs(collection(db, 'cards'));
-      const allCards = snapshot.docs.map((doc) => ({
+      // ✅ 自分のカードのみ取得（出題用テキスト）
+      const userQ = query(collection(db, 'cards'), where('uid', '==', user.uid));
+      const userSnapshot = await getDocs(userQ);
+      let userCards = userSnapshot.docs.map((doc) => ({
         ...(doc.data() as Omit<Card, 'id'>),
         id: doc.id,
       }));
-      const shuffled = allCards.sort(() => Math.random() - 0.5).slice(0, 5);
+
+      // ✅ ゲストカード生成
+      if (user.isAnonymous && userCards.length === 0) {
+        await createGuestCards(user.uid);
+        const newSnapshot = await getDocs(userQ);
+        userCards = newSnapshot.docs.map((doc) => ({
+          ...(doc.data() as Omit<Card, 'id'>),
+          id: doc.id,
+        }));
+      }
+
+      // ✅ 全ユーザーのカード（選択肢用）
+      const allSnapshot = await getDocs(collection(db, 'cards'));
+      const allData = allSnapshot.docs.map((doc) => ({
+        ...(doc.data() as Omit<Card, 'id'>),
+        id: doc.id,
+      }));
+
+      setAllCards(allData);
+
+      const shuffled = userCards.sort(() => Math.random() - 0.5).slice(0, 5);
       setQuizData(shuffled);
       setLoading(false);
     };
+
     fetchCards();
-  }, []);
+  }, [user, userLoading]);
 
   const currentCard = quizData[currentIndex];
 
@@ -54,13 +101,15 @@ export default function QuizPage() {
 
   if (loading) return <div className="text-center text-white p-4">読み込み中...</div>;
 
+  if (!quizData.length) {
+    return <div className="text-center text-white p-6">カードがありません。</div>;
+  }
+
   if (showResult) {
     return (
       <div className="min-h-screen bg-gradient-to-b from-black to-gray-900 flex flex-col justify-center items-center text-white text-center p-6">
         {score === quizData.length ? (
-          <>
-            <Image src="/victory.png" alt="Victory" width={600} height={200} className="mb-6" />
-          </>
+          <Image src="/victory.png" alt="Victory" width={600} height={200} className="mb-6" />
         ) : (
           <h1 className="text-6xl font-bold text-yellow-300 mb-6">Clear</h1>
         )}
@@ -75,7 +124,8 @@ export default function QuizPage() {
     );
   }
 
-  const options = [...quizData]
+  // ✅ 選択肢は全カードから作成
+  const options = allCards
     .filter((card) => card.id !== currentCard.id)
     .sort(() => Math.random() - 0.5)
     .slice(0, 3)
@@ -121,3 +171,5 @@ export default function QuizPage() {
     </div>
   );
 }
+
+
