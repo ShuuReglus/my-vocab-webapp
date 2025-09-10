@@ -15,11 +15,11 @@ type Card = {
 
 async function createGuestCards(uid: string) {
   const guestCards = [
-    { text: '勇気は一歩から', description: 'どんな大きな挑戦も小さな一歩から始まる', uid },
-    { text: '知識は力なり', description: '学びは人生を切り拓く最強の武器である', uid },
-    { text: '忍耐は成功の鍵', description: 'すぐに結果は出なくても努力を続けることが大切', uid },
-    { text: '失敗は成長の糧', description: '失敗を恐れず挑戦することで強くなれる', uid },
-    { text: '仲間は宝', description: '共に歩む仲間の存在が人生を豊かにする', uid },
+    { text: 'サンプルカード 1', description: 'どんな大きな挑戦も小さな一歩から始まる', uid },
+    { text: 'サンプルカード 2', description: '学びは人生を切り拓く最強の武器である', uid },
+    { text: 'サンプルカード 3', description: 'すぐに結果は出なくても努力を続けることが大切', uid },
+    { text: 'サンプルカード 4', description: '失敗を恐れず挑戦することで強くなれる', uid },
+    { text: 'サンプルカード 5', description: '共に歩む仲間の存在が人生を豊かにする', uid },
   ];
   for (const card of guestCards) {
     await addDoc(collection(db, 'cards'), card);
