@@ -1,22 +1,27 @@
 import type { Metadata } from 'next';
-import { Geist, Geist_Mono, Great_Vibes } from 'next/font/google';
+import { Great_Vibes, Inter, Fira_Mono } from 'next/font/google';
 import './globals.css';
 import { Toaster } from 'react-hot-toast';
 
+// Great Vibes は weight が文字列なのでそのまま
 const greatVibes = Great_Vibes({
   subsets: ['latin'],
   weight: '400',
   variable: '--font-greatvibes',
 });
 
-const geistSans = Geist({
-  variable: '--font-geist-sans',
+// Inter の場合も weight を指定
+const geistSans = Inter({
   subsets: ['latin'],
+  weight: '400',
+  variable: '--font-geist-sans',
 });
 
-const geistMono = Geist_Mono({
-  variable: '--font-geist-mono',
+// Fira Mono の場合も weight を指定
+const geistMono = Fira_Mono({
   subsets: ['latin'],
+  weight: '400',
+  variable: '--font-geist-mono',
 });
 
 export const metadata: Metadata = {
@@ -40,3 +45,4 @@ export default function RootLayout({
     </html>
   );
 }
+
