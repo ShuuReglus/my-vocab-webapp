@@ -16,16 +16,12 @@
     "framer-motion": "^12.23.6",
     "lucide-react": "^0.525.0",
     "next": "^13.5.4",
-    "engines": {
-  "node": ">=18"
-},
     "react": "18.3.1",
     "react-dom": "18.3.1",
     "react-firebase-hooks": "^5.1.1",
     "react-hot-toast": "^2.5.2",
     "three": "0.163.0"
   },
-  
   "devDependencies": {
     "@babel/cli": "^7.28.0",
     "@babel/core": "^7.28.0",
@@ -55,6 +51,9 @@
     "ts-jest": "^29.4.0",
     "typescript": "^5"
   },
+  "engines": {
+    "node": ">=18"
+  },
   "lint-staged": {
     "*.{js,ts,jsx,tsx}": [
       "eslint --fix",
@@ -62,3 +61,4 @@
     ]
   }
 }
+
