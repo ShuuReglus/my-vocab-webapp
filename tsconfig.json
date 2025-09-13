@@ -1,7 +1,11 @@
 {
   "compilerOptions": {
     "target": "ES2022",
-    "lib": ["dom", "dom.iterable", "esnext"],
+    "lib": [
+      "dom",
+      "dom.iterable",
+      "esnext"
+    ],
     "allowJs": true,
     "skipLibCheck": true,
     "strict": true,
@@ -26,12 +30,26 @@
     ],
     "baseUrl": "src",
     "paths": {
-      "@/*": ["*"],                // app 配下を "@/..." で参照
-      "@lib/*": ["lib/*"],             // lib 配下を "@lib/..." で参照 
-      "@components/*": ["components/*"] // // より細かい指定も可
+      "@/*": [
+        "*"
+      ], // app 配下を "@/..." で参照
+      "@lib/*": [
+        "lib/*"
+      ], // lib 配下を "@lib/..." で参照
+      "@components/*": [
+        "components/*"
+      ] // // より細かい指定も可
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "next.config.js"],
-  "exclude": ["node_modules"]
+  "include": [
+    "**/*.ts",
+    "**/*.tsx",
+    "next-env.d.ts",
+    "src/@types/**/*.d.ts" // ← ここで自作型定義を読み込む
+    ,
+    ".next/types/**/*.ts"
+, "next.config.js"  ],
+  "exclude": [
+    "node_modules"
+  ]
 }
-

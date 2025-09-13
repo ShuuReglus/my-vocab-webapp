@@ -10,16 +10,18 @@
     "test": "jest"
   },
   "dependencies": {
-    "@react-three/drei": "^10.6.1",
-    "@react-three/fiber": "^9.3.0",
+    "@react-three/drei": "9.122.0",
+    "@react-three/fiber": "8.13.2",
     "firebase": "^12.0.0",
     "framer-motion": "^12.23.6",
     "lucide-react": "^0.525.0",
+
     "next": "^15.5.3",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
+
     "react-hot-toast": "^2.5.2",
-    "three": "^0.178.0"
+    "three": "0.163.0"
   },
   "devDependencies": {
     "@babel/cli": "^7.28.0",
@@ -35,6 +37,7 @@
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
+    "autoprefixer": "^10.4.21",
     "babel-jest": "^30.0.4",
     "eslint": "^9.27.0",
     "eslint-config-next": "15.1.8",
@@ -49,6 +52,9 @@
     "ts-jest": "^29.4.0",
     "typescript": "^5"
   },
+  "engines": {
+    "node": ">=18"
+  },
   "lint-staged": {
     "*.{js,ts,jsx,tsx}": [
       "eslint --fix",
@@ -56,3 +62,4 @@
     ]
   }
 }
+
