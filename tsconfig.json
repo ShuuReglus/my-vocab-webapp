@@ -29,9 +29,9 @@
         "name": "next"
       }
     ],
-    "baseUrl": "./src",
+    "baseUrl": "src",
     "paths": {
-      "./src/*": [
+      "@/*": [
         "*"
       ], // app 配下を "@/..." で参照
       "@lib/*": [
