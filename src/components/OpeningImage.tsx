@@ -27,7 +27,7 @@ export const OpeningImage = () => {
       {step === 0 && (
         <div className={`${baseStyle} animate-zoomSpin bg-black`} style={{ zIndex: 30 }}>
           <Image src="/images/opening.jpg" alt="Opening" fill className="object-cover opacity-80" />
-          <h1 className="text-5xl text-white font-bold animate-blink">WELCOME</h1>
+          <h1 className="text-5xl text-white font-bold animate-blink"></h1>
         </div>
       )}
 
