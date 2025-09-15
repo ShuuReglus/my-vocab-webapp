@@ -7,6 +7,7 @@
       "esnext"
     ],
     "allowJs": true,
+    "checkJs": false,
     "skipLibCheck": true,
     "strict": true,
     "noImplicitAny": true,
@@ -28,7 +29,7 @@
         "name": "next"
       }
     ],
-    "baseUrl": "src",
+    "baseUrl": "./src",
     "paths": {
       "@/*": [
         "*"
@@ -48,7 +49,7 @@
     "src/@types/**/*.d.ts" // ← ここで自作型定義を読み込む
     ,
     ".next/types/**/*.ts"
-, "next.config.js"  ],
+, "next.config.mjs"  ],
   "exclude": [
     "node_modules"
   ]

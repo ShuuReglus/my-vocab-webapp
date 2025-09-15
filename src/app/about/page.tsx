@@ -2,40 +2,6 @@
 
 import Link from 'next/link';
 import { useEffect, useState, useRef } from 'react';
-import { Canvas, useFrame, useLoader } from '@react-three/fiber';
-import { OrbitControls } from '@react-three/drei';
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-import * as THREE from 'three';
-
-import Starfield from '@/components/Starfield';
-
-function RotatingPlanet({
-  textureUrl,
-  position,
-  size,
-}: {
-  textureUrl: string;
-  position: [number, number, number];
-  size: number;
-}) {
-  const meshRef = useRef<THREE.Mesh>(null!);
- // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-expect-error: three.js TextureLoader 型互換のため
-const texture = useLoader(THREE.TextureLoader, textureUrl) as THREE.Texture;
-
-
-
-  useFrame(() => {
-    if (meshRef.current) meshRef.current.rotation.y += 0.002;
-  });
-
-  return (
-    <mesh ref={meshRef} position={position}>
-      <sphereGeometry args={[size, 64, 64]} />
-      <meshStandardMaterial map={texture} />
-    </mesh>
-  );
-}
 
 export default function AboutPage() {
   const [scrollY, setScrollY] = useState(0);
@@ -71,24 +37,6 @@ export default function AboutPage() {
 
   return (
     <main className="bg-black text-white font-sans relative overflow-x-hidden">
-      {/* 🌌 3D惑星表示 */}
-      <div className="absolute top-0 left-0 w-full h-full z-0 pointer-events-none">
-        <Canvas
-          camera={{ position: [0, 0, 25], fov: 50 }}
-          dpr={[1, 1.5]}
-          gl={{ powerPreference: 'high-performance', antialias: true }}
-          frameloop="always"
-        >
-          <ambientLight intensity={0.6} />
-          <directionalLight position={[10, 10, 5]} intensity={1} />
-          <Starfield />
-          <RotatingPlanet textureUrl="/earth.jpg" position={[0, 0, 0]} size={2.5} />
-          <RotatingPlanet textureUrl="/jupiter.jpg" position={[6, 3, -2]} size={2.3} />
-          <RotatingPlanet textureUrl="/mars.jpg" position={[-5, -2, -3]} size={1.8} />
-          <OrbitControls enableZoom={false} enableRotate={false} />
-        </Canvas>
-      </div>
-
       {/* 🌠 背景アニメーション */}
       <div className="absolute inset-0 overflow-hidden z-0 pointer-events-none">
         <div className="animate-shooting-star absolute top-[20%] left-[80%] w-1 h-1 bg-white rounded-full shadow-lg"></div>
