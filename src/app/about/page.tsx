@@ -58,7 +58,7 @@ export default function AboutPage() {
               className="w-[24rem] h-[24rem] object-contain opacity-90 drop-shadow-2xl"
             />
           </div>
-          <h1 className="fixed top-16 right-10 z-30 text-7xl font-bold italic bg-gradient-to-r from-yellow-400 via-pink-400 to-red-400 bg-clip-text text-transparent drop-shadow-xl pointer-events-none">
+          <h1 className="fixed top-16 right-10 z-30 text-7xl font-bold italic text-yellow-400 drop-shadow-xl pointer-events-none">
             WELCOME!!
           </h1>
         </>
@@ -88,7 +88,7 @@ export default function AboutPage() {
               <img
                 src={`/stars-${step}.png`}
                 alt={`stars ${step}`}
-                className="w-full max-w-2xl drop-shadow-xl mb-6"
+                className="w-[48rem] h-[27rem] object-cover rounded-lg drop-shadow-xl mb-6"
               />
               <p className="text-3xl text-yellow-300 italic font-serif drop-shadow-md">
                 {messages[idx]}
@@ -114,32 +114,44 @@ export default function AboutPage() {
           <div className="flex flex-col items-center sm:items-start space-y-3">
             <h3 className="text-2xl font-bold">修田　創</h3>
             <p className="text-gray-600">SHIYUUDEN HAJIME</p>
-            <p className="text-sm sm:text-base text-gray-700">
-              フロントエンドとUIUXデザインを軸にFirebase / Next.js / TailwindCSSで構築した、学習者体験を重視したカードゲームアプリとPython / AWS / OpenAIAPIを使用した名言ガチャアプリを開発、名言ガチャアプリは事情によりREADMEのみですがZOOM等でならお見せできます。
+            <p className="text-sm sm:text-base text-gray-700 font-sans text-left text-justify">
+              フロントエンドとUIUXデザインを軸にFirebase / Next.js /
+              TailwindCSSで構築した、学習者体験を重視したカードゲームアプリとPython / AWS /
+              OpenAIAPIを使用した名言ガチャアプリを開発、名言ガチャアプリは事情によりREADMEのみですがZOOM等でならお見せできます。
             </p>
             <p className="text-sm sm:text-base text-gray-500">出身地　石川県</p>
           </div>
         </div>
 
-        <div className="flex flex-col sm:flex-row gap-4">
-          <Link href="https://github.com/ShuuReglus/Sproject" target="_blank">
-            <button className="bg-yellow-500 text-black px-8 py-3 rounded-lg hover:bg-yellow-600 transition font-bold text-lg shadow-md">
-              名言アプリGitHub READMEを見る
-            </button>
-          </Link>
-          <Link href="https://github.com/ShuuReglus/my-vocab-webapp" target="_blank">
-            <button className="bg-yellow-500 text-black px-8 py-3 rounded-lg hover:bg-yellow-600 transition font-bold text-lg shadow-md">
-              カードアプリGitHub READMEを見る
-            </button>
-          </Link>
-          <Link href="https://my-vocab-webapp.vercel.app/" target="_blank">
-            <button className="bg-yellow-500 text-black px-8 py-3 rounded-lg hover:bg-yellow-600 transition font-bold text-lg shadow-md">
-              カードアプリを体験する
-            </button>
-          </Link>
+        <div className="flex flex-col sm:flex-row gap-6">
+          {/* カードアプリ */}
+          <div className="flex flex-col items-center bg-gray-800 p-4 rounded-lg border-2 border-yellow-400/30">
+            <h4 className="text-yellow-400 font-bold mb-3">カードアプリ</h4>
+            <div className="flex flex-col gap-2">
+              <Link href="https://github.com/ShuuReglus/my-vocab-webapp" target="_blank">
+                <button className="bg-yellow-500 text-black px-6 py-2 rounded-lg hover:bg-yellow-600 transition font-bold text-base shadow-md w-full sm:w-56">
+                  GitHub READMEを見る
+                </button>
+              </Link>
+              <Link href="https://my-vocab-webapp.vercel.app/" target="_blank">
+                <button className="bg-green-500 text-white px-6 py-2 rounded-lg hover:bg-green-600 transition font-bold text-base shadow-md w-full sm:w-56">
+                  アプリを体験する
+                </button>
+              </Link>
+            </div>
+          </div>
+
+          {/* 名言アプリ */}
+          <div className="flex flex-col items-center bg-gray-800 p-4 rounded-lg border-2 border-yellow-400/30">
+            <h4 className="text-yellow-400 font-bold mb-3">名言アプリ</h4>
+            <Link href="https://github.com/ShuuReglus/Sproject" target="_blank">
+              <button className="bg-yellow-500 text-black px-6 py-2 rounded-lg hover:bg-yellow-600 transition font-bold text-base shadow-md w-full sm:w-56">
+                GitHub READMEを見る
+              </button>
+            </Link>
+          </div>
         </div>
       </section>
     </main>
   );
 }
-
