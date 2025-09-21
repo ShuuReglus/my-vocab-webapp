@@ -4,7 +4,7 @@
 > わくわくしながら知識を深められる、体験型クイズ学習アプリ（間違えたカードはクイズに出てきやすくする予定です。）
 
 ---
-![アプリトップ画面](./public/top_screenshot.png)
+![アプリトップ画面](./public/top_screenshot1.png)
 
 ## 概要
 
@@ -40,9 +40,9 @@ Echo of Wisdom は、自身で作成したカードをクイズで楽しく学�
 
 ## UIプレビュー
 
-![コレクション画面](public/corekusyonn.png)
-![クイズ画面](public/quiz.png)
-![正解画面](public/cliar.png)
+![コレクション画面](public/corekusyonn1.png)
+![クイズ画面](public/quiz1.png)
+![正解画面](public/cliar1.png)
 ---
 
 ## ローカルでの起動方法
