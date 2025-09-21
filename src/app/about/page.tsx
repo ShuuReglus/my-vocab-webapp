@@ -64,39 +64,107 @@ export default function AboutPage() {
         </>
       )}
 
-      {/* 🌠 メッセージ */}
-      {[1, 2, 3].map((step, idx) => {
-        const isVisible = visibleSections.includes(idx);
-        const messages = [
-          'ありえないをアリエルへ',
-          'タノシミを実現させて',
-          'ワクワクを増やす人になりたい',
-        ];
-        return (
-          <section
-            key={step}
-            ref={(el) => {
-              sectionRefs.current[idx] = el;
-            }}
-            className="h-screen flex items-center justify-end pr-16 relative"
+      {/* 🌠 メッセージと動画 */}
+      {/* 1つ目の星 */}
+      <section
+        ref={(el) => {
+          sectionRefs.current[0] = el;
+        }}
+        className="h-screen flex items-center justify-end pr-16 relative"
+      >
+        <div
+          className={`transition-opacity duration-1000 ease-in-out text-right ${
+            visibleSections.includes(0) ? 'opacity-100' : 'opacity-0'
+          }`}
+        >
+          <img
+            src="/stars-1.png"
+            alt="stars 1"
+            className="w-[48rem] h-[27rem] object-cover rounded-lg drop-shadow-xl mb-6"
+          />
+          <p className="text-3xl text-yellow-300 italic font-serif drop-shadow-md">
+            ありえないをアリエルへ
+          </p>
+        </div>
+      </section>
+
+      {/* 1つ目の動画 */}
+      <section className="h-screen flex items-center justify-end pr-16 relative">
+        <div className="text-right">
+          <h3 className="text-2xl font-bold text-yellow-400 mb-4">カードゲームアプリ</h3>
+          <video
+            controls
+            className="w-[36rem] h-[20rem] object-cover rounded-lg drop-shadow-xl mb-4"
+            poster="/card-app-thumbnail.jpg"
           >
-            <div
-              className={`transition-opacity duration-1000 ease-in-out text-right ${
-                isVisible ? 'opacity-100' : 'opacity-0'
-              }`}
-            >
-              <img
-                src={`/stars-${step}.png`}
-                alt={`stars ${step}`}
-                className="w-[48rem] h-[27rem] object-cover rounded-lg drop-shadow-xl mb-6"
-              />
-              <p className="text-3xl text-yellow-300 italic font-serif drop-shadow-md">
-                {messages[idx]}
-              </p>
-            </div>
-          </section>
-        );
-      })}
+            <source src="/card-app-demo.mp4" type="video/mp4" />
+            お使いのブラウザは動画をサポートしていません。
+          </video>
+          <p className="text-lg text-gray-300">Firebase / Next.js / TailwindCSSで構築</p>
+        </div>
+      </section>
+
+      {/* 2つ目の星 */}
+      <section
+        ref={(el) => {
+          sectionRefs.current[1] = el;
+        }}
+        className="h-screen flex items-center justify-end pr-16 relative"
+      >
+        <div
+          className={`transition-opacity duration-1000 ease-in-out text-right ${
+            visibleSections.includes(1) ? 'opacity-100' : 'opacity-0'
+          }`}
+        >
+          <img
+            src="/stars-2.png"
+            alt="stars 2"
+            className="w-[48rem] h-[27rem] object-cover rounded-lg drop-shadow-xl mb-6"
+          />
+          <p className="text-3xl text-yellow-300 italic font-serif drop-shadow-md">
+            タノシミを実現させて
+          </p>
+        </div>
+      </section>
+
+      {/* 2つ目の動画 */}
+      <section className="h-screen flex items-center justify-end pr-16 relative">
+        <div className="text-right">
+          <h3 className="text-2xl font-bold text-yellow-400 mb-4">名言ガチャアプリ</h3>
+          <video
+            controls
+            className="w-[36rem] h-[20rem] object-cover rounded-lg drop-shadow-xl mb-4"
+            poster="/quote-app-thumbnail.jpg"
+          >
+            <source src="/quote-app-demo.mp4" type="video/mp4" />
+            お使いのブラウザは動画をサポートしていません。
+          </video>
+          <p className="text-lg text-gray-300">Python / AWS / OpenAI APIを使用</p>
+        </div>
+      </section>
+
+      {/* 3つ目の星 */}
+      <section
+        ref={(el) => {
+          sectionRefs.current[2] = el;
+        }}
+        className="h-screen flex items-center justify-end pr-16 relative"
+      >
+        <div
+          className={`transition-opacity duration-1000 ease-in-out text-right ${
+            visibleSections.includes(2) ? 'opacity-100' : 'opacity-0'
+          }`}
+        >
+          <img
+            src="/stars-3.png"
+            alt="stars 3"
+            className="w-[48rem] h-[27rem] object-cover rounded-lg drop-shadow-xl mb-6"
+          />
+          <p className="text-3xl text-yellow-300 italic font-serif drop-shadow-md">
+            ワクワクを増やす人になりたい
+          </p>
+        </div>
+      </section>
 
       {/* 🧑‍💻 プロフィール */}
       <section className="min-h-[70vh] bg-gray-900 text-white px-6 py-20 flex flex-col items-center justify-center text-center space-y-8 relative z-10">
@@ -149,6 +217,54 @@ export default function AboutPage() {
                 GitHub READMEを見る
               </button>
             </Link>
+          </div>
+        </div>
+      </section>
+
+      {/* 動画紹介セクション */}
+      <section className="py-20 bg-gradient-to-b from-gray-900 to-black">
+        <div className="container mx-auto px-6">
+          <h2 className="text-4xl font-bold text-yellow-400 text-center mb-4">アプリ紹介動画</h2>
+          <p className="text-gray-300 text-center mb-12 text-lg">
+            開発したアプリケーションの機能と特徴をご紹介します
+          </p>
+
+          <div className="grid md:grid-cols-2 gap-8 max-w-6xl mx-auto">
+            {/* カードアプリ動画 */}
+            <div className="bg-gray-800 rounded-lg p-6 shadow-xl">
+              <h3 className="text-2xl font-bold text-yellow-400 mb-4 text-center">
+                カードゲームアプリ
+              </h3>
+              <video
+                controls
+                className="w-full rounded-lg shadow-lg mb-4"
+                poster="/card-app-thumbnail.jpg"
+              >
+                <source src="/card-app-demo.mp4" type="video/mp4" />
+                お使いのブラウザは動画をサポートしていません。
+              </video>
+              <p className="text-gray-300 text-sm">
+                Firebase / Next.js / TailwindCSSで構築した学習者体験重視のカードゲームアプリ
+              </p>
+            </div>
+
+            {/* 名言アプリ動画 */}
+            <div className="bg-gray-800 rounded-lg p-6 shadow-xl">
+              <h3 className="text-2xl font-bold text-yellow-400 mb-4 text-center">
+                名言ガチャアプリ
+              </h3>
+              <video
+                controls
+                className="w-full rounded-lg shadow-lg mb-4"
+                poster="/quote-app-thumbnail.jpg"
+              >
+                <source src="/quote-app-demo.mp4" type="video/mp4" />
+                お使いのブラウザは動画をサポートしていません。
+              </video>
+              <p className="text-gray-300 text-sm">
+                Python / AWS / OpenAI APIを使用した名言ガチャアプリ
+              </p>
+            </div>
           </div>
         </div>
       </section>
