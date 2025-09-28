@@ -134,9 +134,9 @@ export default function AboutPage() {
           <video
             controls
             className="w-[36rem] h-[20rem] object-cover rounded-lg drop-shadow-xl mb-4"
-            poster="/quote-app-thumbnail.jpg"
+            poster="/meigen_screenshot1.jpg"
           >
-            <source src="/quote-app-demo.mp4" type="video/mp4" />
+            <source src="/douga_small.mp4" type="video/mp4" />
             お使いのブラウザは動画をサポートしていません。
           </video>
           <p className="text-lg text-gray-300">Python / AWS / OpenAI APIを使用</p>
@@ -256,9 +256,9 @@ export default function AboutPage() {
               <video
                 controls
                 className="w-full rounded-lg shadow-lg mb-4"
-                poster="/quote-app-thumbnail.jpg"
+                poster="/meigen_screenshot1.jpg"
               >
-                <source src="/quote-app-demo.mp4" type="video/mp4" />
+                <source src="/douga_small.mp4" type="video/mp4" />
                 お使いのブラウザは動画をサポートしていません。
               </video>
               <p className="text-gray-300 text-sm">
